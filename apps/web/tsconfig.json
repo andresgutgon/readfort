@@ -1,11 +1,12 @@
 {
-  "extends": "@repo/typescript-config/nextjs.json",
+  "extends": "@readfort/typescript/base.json",
   "compilerOptions": {
-    "plugins": [
-      {
-        "name": "next"
-      }
-    ]
+    "plugins": [{ "name": "next" }],
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "allowJs": true,
+    "jsx": "preserve",
+    "noEmit": true
   },
   "include": [
     "next-env.d.ts",

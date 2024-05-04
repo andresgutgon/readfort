@@ -1,6 +1,7 @@
 {
-  "extends": "@repo/typescript-config/react-library.json",
+  "extends": "@readfort/typescript/base.json",
   "compilerOptions": {
+    "jsx": "react-jsx",
     "outDir": "dist"
   },
   "include": ["src"],

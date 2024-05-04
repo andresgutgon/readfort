@@ -5,11 +5,12 @@
     "build": "turbo build",
     "dev": "turbo dev",
     "lint": "turbo lint",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+    "tc": "turbo tc",
+    "prettier": "prettier --write \"**/*.{ts,tsx,md}\""
   },
   "devDependencies": {
-    "@repo/eslint-config": "workspace:*",
-    "@repo/typescript-config": "workspace:*",
+    "@readfort/eslint": "workspace:*",
+    "@readfort/typescript": "workspace:*",
     "prettier": "^3.2.5",
     "turbo": "latest"
   },
