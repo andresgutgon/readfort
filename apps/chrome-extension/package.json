@@ -1,0 +1,46 @@
+{
+  "name": "@readfort/chrome-extension",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "tc": "tsc --noEmit",
+    "prettier": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "lint": "eslint . --max-warnings 0"
+  },
+  "dependencies": {
+    "@readfort/core": "workspace:*",
+    "@readfort/ui": "workspace:*",
+    "@tanstack/react-query": "^4.29.19",
+    "lucide-react": "^0.241.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "zod": "^3.21.4"
+  },
+  "devDependencies": {
+    "@crxjs/vite-plugin": "2.0.0-beta.23",
+    "@readfort/eslint": "workspace:*",
+    "@readfort/tailwindcss": "workspace:*",
+    "@readfort/typescript": "workspace:*",
+    "@t3-oss/env-core": "^0.6.0",
+    "@tanstack/react-query-devtools": "^4.29.19",
+    "@types/node": "20.3.0",
+    "@types/react": "^18.0.37",
+    "@types/react-dom": "^18.0.11",
+    "@vitejs/plugin-react": "^4.0.0",
+    "autoprefixer": "^10.4.14",
+    "chrome-types": "^0.1.203",
+    "dotenv": "^16.3.0",
+    "eslint": "^8.57.0",
+    "prettier": "^3.2.5",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-refresh": "^0.3.4",
+    "postcss": "^8.4.24",
+    "tailwindcss": "^3.4.3",
+    "typescript": "^5.0.2",
+    "vite": "^4.3.9"
+  }
+}

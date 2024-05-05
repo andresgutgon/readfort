@@ -1,0 +1,21 @@
+{
+  "name": "@readfort/core",
+  "version": "0.0.0",
+  "private": true,
+  "main": "index.ts",
+  "scripts": {
+    "lint": "eslint . --max-warnings 0",
+    "tc": "tsc --noEmit",
+    "prettier": "prettier --write \"**/*.{ts}\""
+  },
+  "dependencies": {
+    "lodash": "^4.17.21"
+  },
+  "devDependencies": {
+    "@readfort/eslint": "workspace:*",
+    "@readfort/typescript": "workspace:*",
+    "@types/lodash": "4.17.1",
+    "eslint": "^8.57.0",
+    "typescript": "^5.0.2"
+  }
+}
