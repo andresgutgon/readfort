@@ -14,5 +14,6 @@
     }
   },
   "include": ["./kindle-online/src", "./src", "../../packages/ui/src"],
+  "exclude": ["node_modules"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

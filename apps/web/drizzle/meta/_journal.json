@@ -1,0 +1,13 @@
+{
+  "version": "6",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "6",
+      "when": 1715426244793,
+      "tag": "0000_soft_the_anarchist",
+      "breakpoints": true
+    }
+  ]
+}
