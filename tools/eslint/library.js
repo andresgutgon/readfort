@@ -7,9 +7,6 @@ module.exports = {
   extends: ["eslint:recommended", "prettier", "eslint-config-turbo"],
   plugins: ['@typescript-eslint/eslint-plugin'],
   parser: "@typescript-eslint/parser",
-  env: {
-    node: true,
-  },
   settings: {
     "import/resolver": {
       typescript: {
