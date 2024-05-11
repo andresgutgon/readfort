@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-import { GoogleButton } from '@readfort/ui'
+import { OauthButton } from '@readfort/ui'
 import api from '$base/lib/api'
 
 export default function GoogleAuth() {
@@ -12,6 +12,11 @@ export default function GoogleAuth() {
     })
   }
   return (
-    <GoogleButton onClick={onClick} isLoading={loading} disabled={loading} />
+    <OauthButton
+      onClick={onClick}
+      isLoading={loading}
+      disabled={loading}
+      oauth={{ id: 'google', name: 'Google' }}
+    />
   )
 }

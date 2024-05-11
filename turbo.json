@@ -1,6 +1,17 @@
 {
   "$schema": "https://turbo.build/schema.json",
-  "globalEnv": ["NODE_ENV", "DATABASE_URL", "TEST_DATABASE_URL"],
+  "globalEnv": [
+    "NODE_ENV",
+    "DATABASE_URL",
+    "TEST_DATABASE_URL",
+    "AUTH_SECRET",
+    "FROM_MAILER_EMAIL",
+    "MAILGUN_API_KEY",
+    "MAILGUN_DOMAIN",
+    "BETA_LIST_EMAILS",
+    "AUTH_GOOGLE_ID",
+    "AUTH_GOOGLE_SECRET"
+  ],
   "globalDependencies": ["**/.env.*local"],
   "pipeline": {
     "build": {

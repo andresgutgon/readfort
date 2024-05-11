@@ -1,8 +1,8 @@
 import { ButtonHTMLAttributes, forwardRef, ReactNode } from 'react'
 import { cva, type VariantProps } from 'class-variance-authority'
-import { Loader2 } from 'lucide-react'
 import { Slot } from '@radix-ui/react-slot'
 
+import { Icons } from '$ui/components/ui/Icons'
 import { cn } from '$ui/lib/utils'
 
 const buttonVariants = cva(
@@ -37,6 +37,7 @@ export interface ButtonProps
   extends ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof buttonVariants> {
   children: ReactNode
+  fullWidth?: boolean
   asChild?: boolean
   isLoading?: boolean
 }
@@ -46,6 +47,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
     className,
     variant,
     size,
+    fullWidth = false,
     asChild = false,
     children,
     isLoading = false,
@@ -56,11 +58,15 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
   const Comp = asChild ? Slot : 'button'
   return (
     <Comp
-      className={cn(buttonVariants({ variant, size, className }))}
+      className={cn(buttonVariants({ variant, size, className }), {
+        'w-full': fullWidth,
+      })}
       ref={ref}
       {...props}
     >
-      {isLoading ? <Loader2 className='mr-2 h-4 w-4 animate-spin' /> : null}
+      {isLoading ? (
+        <Icons.spinner className='mr-2 h-4 w-4 animate-spin' />
+      ) : null}
       {children}
     </Comp>
   )
