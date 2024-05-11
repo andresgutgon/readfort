@@ -1,19 +1,32 @@
 {
   "name": "@readfort/web",
-  "version": "1.0.0",
+  "version": "0.0.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --port 3003",
+    "db:start": "docker-compose -f ./devDb/docker-compose.yml up -d",
+    "dev:next": "next dev --port 3003",
+    "dev": "pnpm run db:start && pnpm run dev:next",
     "build": "next build",
     "start": "next start",
+    "prettier": "prettier --write \"**/*.{ts,tsx,md}\"",
     "tc": "tsc --noEmit",
-    "lint": "eslint . --max-warnings 0"
+    "lint": "eslint . --max-warnings 0",
+    "db:generate": "drizzle-kit generate",
+    "db:generate:custom": "pnpm run db:generate --custom",
+    "db:migrate": "drizzle-kit migrate --config=./drizzle.config.ts",
+    "db:migrate:test": "NODE_ENV=test pnpm run db:migrate",
+    "db:drop": "drizzle-kit drop",
+    "db:check": "drizzle-kit check"
   },
   "dependencies": {
     "@readfort/ui": "workspace:*",
+    "@t3-oss/env-nextjs": "^0.10.1",
+    "drizzle-orm": "^0.30.10",
     "next": "^14.1.1",
+    "pg": "^8.11.5",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "zod": "^3.21.4"
   },
   "devDependencies": {
     "@next/eslint-plugin-next": "^14.1.1",
@@ -21,9 +34,12 @@
     "@readfort/typescript": "workspace:*",
     "@types/eslint": "^8.56.5",
     "@types/node": "^20.11.24",
+    "@types/pg": "^8.11.6",
     "@types/react": "^18.2.61",
     "@types/react-dom": "^18.2.19",
+    "drizzle-kit": "^0.21.1",
     "eslint": "^8.57.0",
+    "prettier": "^3.2.5",
     "typescript": "^5.3.3"
   }
 }

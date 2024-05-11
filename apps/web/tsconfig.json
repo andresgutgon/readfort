@@ -5,13 +5,18 @@
     "plugins": [{ "name": "next" }],
     "module": "ESNext",
     "moduleResolution": "Bundler",
-    "noEmit": true
+    "noEmit": true,
+    "paths": {
+      "$ui/*": ["../../packages/ui/src/*"],
+      "$/*": ["./src/*"]
+    }
   },
   "include": [
     "next-env.d.ts",
     "next.config.js",
-    "**/*.ts",
-    "**/*.tsx",
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "../../packages/ui/src",
     ".next/types/**/*.ts"
   ],
   "exclude": ["node_modules"]
