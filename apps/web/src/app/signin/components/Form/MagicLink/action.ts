@@ -1,6 +1,7 @@
 'use server'
 
-import { signIn, SIGNIN_ERROR_URL } from '$/auth'
+import { signIn } from '$/auth'
+import { ROUTES } from '$/lib/routes'
 import { AuthError } from 'next-auth'
 import { redirect } from 'next/navigation'
 
@@ -13,7 +14,7 @@ export default async function magicLinkAction(formData: FormData) {
     })
   } catch (error) {
     if (error instanceof AuthError) {
-      return redirect(`${SIGNIN_ERROR_URL}?error=${error.type}`)
+      return redirect(`${ROUTES.signin.error}?error=${error.type}`)
     }
 
     throw error

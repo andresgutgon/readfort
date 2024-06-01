@@ -1,8 +1,9 @@
 import { timestamps } from '$/db/schema/schemaHelpers'
+import { InferSelectModel, relations } from 'drizzle-orm'
 import { integer, pgTable, primaryKey, text } from 'drizzle-orm/pg-core'
 import type { AdapterAccountType } from 'next-auth/adapters'
 
-import { users } from './users'
+import { users, type User } from './users'
 
 export const accounts = pgTable(
   'accounts',
@@ -28,3 +29,11 @@ export const accounts = pgTable(
     }),
   }),
 )
+
+export const accountRelations = relations(accounts, ({ one }) => ({
+  account: one(users),
+}))
+
+export type Account = InferSelectModel<typeof accounts> & {
+  account: User
+}

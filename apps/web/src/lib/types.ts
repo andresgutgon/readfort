@@ -23,3 +23,17 @@ export interface PageProps<
   >
   searchParams: { [K in TSearchParams]?: string | string[] }
 }
+
+export enum KindleCountry {
+  US = 'us',
+  UK = 'uk',
+  DE = 'de',
+  FR = 'fr',
+  IT = 'it',
+  ES = 'es',
+  JP = 'jp',
+  IN = 'in',
+  MX = 'mx',
+  BR = 'br',
+  AU = 'au',
+}

@@ -1,5 +1,6 @@
 import { Button, cn } from '@readfort/ui'
 import { signinLink } from '$/auth'
+import { ROUTES } from '$/lib/routes'
 
 export default function SigninButton({
   redirectTo,
@@ -13,7 +14,8 @@ export default function SigninButton({
       className={cn({ 'w-full': fullWidth })}
       action={async (formData) => {
         'use server'
-        const redirectTo = formData.get('redirectTo')?.toString()
+        const inputRedirect = formData.get('redirectTo')?.toString()
+        const redirectTo = inputRedirect ? inputRedirect : ROUTES.dashboard.root
         await signinLink({ redirectTo })
       }}
     >

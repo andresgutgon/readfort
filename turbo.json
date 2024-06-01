@@ -4,6 +4,7 @@
     "NODE_ENV",
     "DATABASE_URL",
     "TEST_DATABASE_URL",
+    "AUTH_URL",
     "AUTH_SECRET",
     "FROM_MAILER_EMAIL",
     "MAILGUN_API_KEY",

@@ -1,0 +1,9 @@
+{
+  "readfort": {
+    "hostname": "readfort.dev",
+    "source": 443,
+    "target": 3000,
+    "cert": "dev/ssl/certificates/readfort.dev.pem",
+    "key": "dev/ssl/certificates/readfort.dev-key.pem"
+  }
+}
