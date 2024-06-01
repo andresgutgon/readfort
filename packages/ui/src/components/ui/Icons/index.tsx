@@ -1,12 +1,42 @@
+import {
+  Loader2,
+  LucideProps,
+  MailIcon,
+  Moon,
+  SunMedium,
+  type LucideIcon,
+} from 'lucide-react'
+
 import { cn } from '$ui/lib/utils'
 
-type Props = { size?: 'normal' }
-export default function GoogleLogo({ size = 'normal' }: Props) {
-  return (
+export type Icon = LucideIcon
+
+export const Icons = {
+  sun: SunMedium,
+  moon: Moon,
+  spinner: Loader2,
+  mail: MailIcon,
+  logo: (props: LucideProps) => (
+    <svg
+      xmlns='http://www.w3.org/2000/svg'
+      viewBox='0 0 24 24'
+      fill='none'
+      stroke='currentColor'
+      strokeWidth='2'
+      strokeLinecap='round'
+      strokeLinejoin='round'
+      className='mr-2 h-6 w-6'
+      {...props}
+    >
+      <path d='M15 6v12a3 3 0 1 0 3-3H6a3 3 0 1 0 3 3V6a3 3 0 1 0-3 3h12a3 3 0 1 0-3-3' />
+    </svg>
+  ),
+  google: (props: LucideProps) => (
     <svg
       xmlns='http://www.w3.org/2000/svg'
       viewBox='0 0 48 48'
-      className={cn({ 'w-4 h-4 my-px block': size === 'normal' })}
+      className={cn({ 'w-4 h-4 my-px block': props.size === 'normal' })}
+      {...props}
     >
       <path
         fill='#EA4335'
@@ -26,5 +56,5 @@ export default function GoogleLogo({ size = 'normal' }: Props) {
       />
       <path fill='none' d='M0 0h48v48H0z' />
     </svg>
-  )
+  ),
 }

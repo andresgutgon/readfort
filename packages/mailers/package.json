@@ -1,0 +1,27 @@
+{
+  "name": "@readfort/mailers",
+  "version": "0.1.0",
+  "description": "Mails done with React",
+  "author": "Andrés Gutiérrez",
+  "scripts": {
+    "dev": "email dev --dir ./src --port 3006",
+    "export": "email export --dir ./src",
+    "lint": "eslint . --max-warnings 0",
+    "tc": "tsc --noEmit",
+    "prettier": "prettier --write \"**/*.{ts}\""
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "@react-email/components": "0.0.18-canary.0",
+    "@react-email/tailwind": "0.0.17-canary.0",
+    "react-email": "2.1.3-canary.2"
+  },
+  "devDependencies": {
+    "@readfort/eslint": "workspace:*",
+    "@readfort/typescript": "workspace:*",
+    "@types/react": "^18.3.2",
+    "@types/react-dom": "^18.3.0",
+    "typescript": "^5.0.2",
+    "prettier": "^3.2.5"
+  }
+}
