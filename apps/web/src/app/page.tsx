@@ -11,7 +11,7 @@ export default async function Home() {
     <div className='h-screen flex flex-col gap-y-4 items-center justify-center'>
       {session ? (
         <div className='flex items-center space-x-4'>
-          <Avatar url={info.image} alt={info.name} fallback={info.initials} />
+          <Avatar url={undefined} alt={info.name} fallback={info.fallback} />
           <div>
             <span className='block font-medium text-gray-700'>{info.name}</span>
             <span className='text-sm text-gray-500'>{info.email}</span>
