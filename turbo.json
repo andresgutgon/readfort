@@ -11,7 +11,12 @@
     "MAILGUN_DOMAIN",
     "BETA_LIST_EMAILS",
     "AUTH_GOOGLE_ID",
-    "AUTH_GOOGLE_SECRET"
+    "AUTH_GOOGLE_SECRET",
+    "AWS_ACCESS_KEY",
+    "AWS_ACCESS_SECRET",
+    "S3_BUCKET",
+    "AWS_REGION",
+    "NEXT_PUBLIC_DRIVE_DISK"
   ],
   "globalDependencies": ["**/.env.*local"],
   "pipeline": {

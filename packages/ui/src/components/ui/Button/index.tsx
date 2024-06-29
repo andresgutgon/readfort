@@ -1,6 +1,6 @@
 import { ButtonHTMLAttributes, forwardRef, ReactNode } from 'react'
 import { cva, type VariantProps } from 'class-variance-authority'
-import { Slot } from '@radix-ui/react-slot'
+import { Slot, Slottable } from '@radix-ui/react-slot'
 
 import { Icons } from '$ui/components/ui/Icons'
 import { cn } from '$ui/lib/utils'
@@ -67,7 +67,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
       {isLoading ? (
         <Icons.spinner className='mr-2 h-4 w-4 animate-spin' />
       ) : null}
-      {children}
+      <Slottable>{children}</Slottable>
     </Comp>
   )
 })

@@ -1,3 +1,9 @@
+DO $$ BEGIN
+ CREATE TYPE "public"."kindle" AS ENUM('us', 'uk', 'de', 'fr', 'it', 'es', 'jp', 'in', 'mx', 'br', 'au');
+EXCEPTION
+ WHEN duplicate_object THEN null;
+END $$;
+--> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "accounts" (
 	"userId" text NOT NULL,
 	"type" text NOT NULL,

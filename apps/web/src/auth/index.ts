@@ -130,16 +130,18 @@ const {
         token.id = user.id
       }
       const name = session?.user?.name ?? user?.name
+      if (name) token.name = name
 
-      if (name) {
-        token.name = name
+      const image = session?.user?.image ?? user?.image
+      const imageRemoved = session?.user?.avatarRemoved
+      if (image) {
+        token.image = image
+      } else if (imageRemoved) {
+        token.image = null
       }
 
       const kindle = session?.user?.kindle ?? user?.kindle
-
-      if (kindle) {
-        token.kindle = kindle
-      }
+      if (kindle) token.kindle = kindle
 
       const username = user?.username ?? session?.user?.username
       const userId = user?.id ?? token.id ?? session?.user?.id
@@ -158,6 +160,7 @@ const {
     session({ session, token }) {
       session.user.id = token.id
       session.user.name = token.name
+      session.user.image = token.image
       session.user.username = token.username
       session.user.kindle = token.kindle
       session.user.hasCompletedOnboarding = isCompleted(token)

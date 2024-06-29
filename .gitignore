@@ -45,3 +45,4 @@ packages/mailers/.react-email
 
 # Local postgres data
 apps/web/dev/pgdata/
+apps/web/public/uploads/
