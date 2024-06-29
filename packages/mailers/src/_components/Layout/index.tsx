@@ -17,16 +17,22 @@ import {
   Text,
 } from '@react-email/components'
 
-const ASSETS_BASE = 'http://localhost:3006'
+export type Env = 'development' | 'production' | 'test'
+const SITE_DOMAIN_DEV = 'readfort.dev'
+const SITE_DOMAIN = 'readfort.com'
 export default function Layout({
   children,
   title,
   previewText,
+  env,
 }: {
   children: ReactNode
   title: string
   previewText: string
+  env: Env
 }) {
+  const domain = env === 'development' ? SITE_DOMAIN_DEV : SITE_DOMAIN
+  const domainWithProtocol = `https://${domain}`
   return (
     <Html>
       <Head>
@@ -56,7 +62,7 @@ export default function Layout({
               <Row className='pt-4'>
                 <Hr className='border-gray-200 mt-8 mb-4' />
                 <Img
-                  src={`${ASSETS_BASE}/static/logo.png`}
+                  src={`${domainWithProtocol}/mailers/logo.png`}
                   width='32'
                   height='32'
                   alt="Readfort's Logo"
@@ -67,11 +73,11 @@ export default function Layout({
                 </Text>
                 <Text className='text-gray-400 text-base mt-4 mb-1'>
                   <Link
-                    href='https://readfort.com'
+                    href={domainWithProtocol}
                     className='underline text-base text-gray-500'
                     target='_blank'
                   >
-                    readfort.com
+                    {domain}
                   </Link>
                   &nbsp;Get the most out of your{' '}
                   <strong className='font-bold text-gray-900'>reading</strong>.

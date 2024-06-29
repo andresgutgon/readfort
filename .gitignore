@@ -39,3 +39,9 @@ yarn-error.log*
 
 mailpit.db*
 packages/mailers/.react-email
+
+# Local SSL certificates
+*.pem
+
+# Local postgres data
+apps/web/dev/pgdata/

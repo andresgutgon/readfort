@@ -1,13 +1,14 @@
 import { Link } from '@react-email/components'
 
-import Layout from '../_components/Layout'
+import Layout, { type Env } from '../_components/Layout'
 
 type Props = {
   magic?: string
+  env: Env
 }
-export default function MagicLink({ magic }: Props) {
+export default function MagicLink({ env, magic }: Props) {
   return (
-    <Layout title='Login' previewText='Log in with this magic link'>
+    <Layout env={env} title='Login' previewText='Log in with this magic link'>
       <Link
         href={magic}
         target='_blank'
@@ -21,4 +22,5 @@ export default function MagicLink({ magic }: Props) {
 
 MagicLink.PreviewProps = {
   magic: 'https://example.com/fake-magic-link',
+  env: 'development',
 } as Props

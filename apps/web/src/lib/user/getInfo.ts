@@ -1,5 +1,3 @@
-import { Session } from 'next-auth'
-
 const BG_COLORS = {
   yellow: 'bg-yellow-500 text-yellow-100',
   orange: 'bg-orange-500 text-orange-100',
@@ -29,8 +27,16 @@ function getFallback(name: string | null | undefined) {
   return { initials, bgColorClass }
 }
 
-export default function getUserInfoFromSession(session: Session | null) {
-  if (!session || !session.user) {
+export default function getUserInfoFromSession({
+  name,
+  email,
+  image,
+}: {
+  name: string | null | undefined
+  email: string | null | undefined
+  image: string | null | undefined
+}) {
+  if (!name || !email) {
     return {
       name: 'Unknown',
       fallback: { initials: 'X' },
@@ -38,8 +44,6 @@ export default function getUserInfoFromSession(session: Session | null) {
       image: null,
     }
   }
-
-  const { name, email, image } = session.user
 
   return {
     name: name ?? 'Unknown',

@@ -3,6 +3,7 @@ import { z } from 'zod'
 
 export default createEnv({
   server: {
+    AUTH_URL: z.string(),
     AUTH_SECRET: z.string(),
     FROM_MAILER_EMAIL: z.string(),
     MAILGUN_API_KEY: z.string().optional(),
@@ -14,6 +15,7 @@ export default createEnv({
     AUTH_GOOGLE_SECRET: z.string(),
   },
   runtimeEnv: {
+    AUTH_URL: process.env.AUTH_URL,
     AUTH_SECRET: process.env.AUTH_SECRET,
     FROM_MAILER_EMAIL: process.env.FROM_MAILER_EMAIL,
     MAILGUN_API_KEY: process.env.MAILGUN_API_KEY,

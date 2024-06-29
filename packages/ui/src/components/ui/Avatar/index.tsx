@@ -54,8 +54,10 @@ function Avatar({
   url,
   alt,
   fallback,
+  className,
 }: {
   url?: string | undefined | null
+  className?: string
   alt: string
   fallback: {
     initials: string
@@ -63,7 +65,7 @@ function Avatar({
   }
 }) {
   return (
-    <AvatarRoot>
+    <AvatarRoot className={className}>
       {url ? <AvatarImage src={url} alt={alt} /> : null}
       <AvatarFallback className={fallback.bgColorClass}>
         {fallback.initials}

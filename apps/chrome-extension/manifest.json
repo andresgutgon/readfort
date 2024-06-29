@@ -13,10 +13,16 @@
    {
      "matches": [
        "https://leer.amazon.es/notebook*",
+       "https://leer.amazon.com.mx/notebook*",
        "https://read.amazon.com/notebook*",
        "https://read.amazon.co.uk/notebook*",
+       "https://read.amazon.co.jp/notebook*",
        "https://lire.amazon.fr/notebook*",
+       "https://ler.amazon.com.br/notebook*",
+       "https://read.amazon.com.au/notebook*",
        "https://lesen.amazon.de/notebook*",
+       "https://leggi.amazon.it/notebook*",
+       "https://read.amazon.in/notebook*"
        "https://blank.org/*"
      ],
      "js": ["kindle-online/src/main.tsx"]
@@ -31,11 +37,17 @@
        "assets/fonts/Inter/black.otf"
      ],
      "matches": [
-       "https://leer.amazon.es/*",
        "https://read.amazon.com/*",
        "https://read.amazon.co.uk/*",
+       "https://read.amazon.co.jp/*",
+       "https://read.amazon.in/*"
+       "https://read.amazon.com.au/*",
+       "https://leer.amazon.es/*",
+       "https://leer.amazon.com.mx/*",
+       "https://ler.amazon.com.br/*",
        "https://lire.amazon.fr/*",
        "https://lesen.amazon.de/*",
+       "https://leggi.amazon.it/*",
        "https://blank.org/*"
      ]
    }

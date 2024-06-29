@@ -16,7 +16,12 @@ export default class MagicLinkMail extends Mailer {
       to: this.options.to,
       from: this.options.from,
       subject: 'Sign in to Readfort',
-      html: render(Template({ magic: this.magic })),
+      html: render(
+        Template({
+          magic: this.magic,
+          env: process.env.NODE_ENV ?? 'development',
+        }),
+      ),
     })
   }
 }
