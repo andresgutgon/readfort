@@ -13,6 +13,7 @@ export default createEnv({
     BETA_LIST_EMAILS: z.string(),
     AUTH_GOOGLE_ID: z.string(),
     AUTH_GOOGLE_SECRET: z.string(),
+    DRIVE_DISK: z.string(),
   },
   runtimeEnv: {
     AUTH_URL: process.env.AUTH_URL,
@@ -25,5 +26,6 @@ export default createEnv({
     BETA_LIST_EMAILS: process.env.BETA_LIST_EMAILS,
     AUTH_GOOGLE_ID: process.env.AUTH_GOOGLE_ID,
     AUTH_GOOGLE_SECRET: process.env.AUTH_GOOGLE_SECRET,
+    DRIVE_DISK: process.env.DRIVE_DISK,
   },
 })
