@@ -9,8 +9,6 @@ import {
   useState,
 } from 'react'
 
-import { Input } from '$ui/components/ui/Input'
-
 type Props = Omit<
   InputHTMLAttributes<HTMLInputElement>,
   'onChange' | 'children'
@@ -51,7 +49,7 @@ export const Dropzone = forwardRef<HTMLInputElement, Props>(
         onDragLeave={handleDragLeave}
       >
         {children({ isDragging })}
-        <Input
+        <input
           ref={ref}
           type='file'
           className='hidden'
