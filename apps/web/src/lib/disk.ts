@@ -1,26 +1,38 @@
-import env from '$/env'
+import env, { DriveDiskSchema } from '$/env'
 import { Disk } from 'flydrive'
 import { FSDriver } from 'flydrive/drivers/fs'
 import { S3Driver } from 'flydrive/drivers/s3'
+import { z } from 'zod'
 
-const drivers = {
-  fs: () =>
-    new FSDriver({
+function getAwsCredentials() {
+  const accessKeyId = env.AWS_ACCESS_KEY
+  const secretAccessKey = env.AWS_ACCESS_SECRET
+
+  if (!accessKeyId || !secretAccessKey) {
+    throw new Error('AWS credentials not configured')
+  }
+
+  return { accessKeyId, secretAccessKey }
+}
+
+export function buildDisk(key: z.infer<typeof DriveDiskSchema>) {
+  if (key === 'local' && process.env.NODE_ENV === 'production') {
+    new Error('Local file system not allowed as file storage in production')
+  }
+
+  if (key === 'local') {
+    return new FSDriver({
       location: new URL('./uploads', import.meta.url),
       visibility: 'public',
-    }),
-  s3: () => new S3Driver({
-    credentials: {
-      accessKeyId: 'AWS_ACCESS_KEY',
-      secretAccessKey: 'AWS_ACCESS_SECRET',
-    },
-    region: 'S3_REGION',
-    bucket: 'S3_BUCKET',
+    })
+  }
+
+  return new S3Driver({
+    credentials: getAwsCredentials(),
+    region: env.S3_REGION,
+    bucket: env.S3_BUCKET,
     visibility: 'private',
   })
 }
 
-const driverToUse = drivers[env.DRIVE_DISK as keyof typeof drivers]()
-const disk = new Disk(driverToUse)
-
-export default disk
+export default new Disk(buildDisk(env.DRIVE_DISK))
