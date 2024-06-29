@@ -53,7 +53,10 @@ export default function OnboardingForm({
   )
   const fieldErrors = error?.fieldErrors
   return (
-    <form action={executeFormAction} className='space-y-4'>
+    <form
+      action={executeFormAction}
+      className='bg-background relative z-10 space-y-4'
+    >
       <Input disabled type='email' name='email' defaultValue={email} />
       <Input
         type='text'

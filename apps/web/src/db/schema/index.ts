@@ -1,5 +1,5 @@
 // Models
-export { users, usersRelations } from './auth/users'
+export { users, usersRelations, kindleCountriesEnum } from './auth/users'
 export { accounts, accountRelations } from './auth/accounts'
 export {
   verificationTokens,

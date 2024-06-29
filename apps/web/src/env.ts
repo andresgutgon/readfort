@@ -15,7 +15,7 @@ export default createEnv({
     AUTH_GOOGLE_ID: z.string(),
     AUTH_GOOGLE_SECRET: z.string(),
     DRIVE_DISK: DriveDiskSchema,
-    S3_REGION: z.string(),
+    AWS_REGION: z.string(),
     S3_BUCKET: z.string(),
     AWS_ACCESS_KEY: z.string().optional(),
     AWS_ACCESS_SECRET: z.string().optional(),
@@ -34,7 +34,7 @@ export default createEnv({
     DRIVE_DISK: process.env.DRIVE_DISK,
     AWS_ACCESS_KEY: process.env.AWS_ACCESS_KEY,
     AWS_ACCESS_SECRET: process.env.AWS_ACCESS_SECRET,
-    S3_REGION: process.env.S3_REGION,
+    AWS_REGION: process.env.AWS_REGION,
     S3_BUCKET: process.env.S3_BUCKET,
   },
 })

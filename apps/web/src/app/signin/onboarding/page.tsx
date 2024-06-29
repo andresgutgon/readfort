@@ -1,9 +1,10 @@
+import { Avatar } from '@readfort/ui'
 import SigninHeader from '$/app/signin/components/SigninHeader'
 import OnboardingForm from '$/app/signin/onboarding/OnboardingFrom'
 import { auth } from '$/auth'
+import AvatarUploader from '$/components/AvartarUploader'
 import { CLAIN_DESCRIPTION } from '$/constants'
 import getUserInfo from '$/lib/user/getInfo'
-import { Avatar } from '$ui/index'
 import { Metadata } from 'next'
 
 export const metadata: Metadata = {
@@ -20,12 +21,11 @@ export default async function OnboardingPage() {
   })
   return (
     <>
-      <div className='flex flex-col items-center gap-y-4'>
-        <Avatar
+      <div className='relative flex flex-col items-center gap-y-4'>
+        <AvatarUploader
           url={info.image}
           alt={info.name}
           fallback={info.fallback}
-          className='w-12 h-12'
         />
         <SigninHeader
           title='Almost there! 💪'

@@ -29,7 +29,7 @@ export function buildDisk(key: z.infer<typeof DriveDiskSchema>) {
 
   return new S3Driver({
     credentials: getAwsCredentials(),
-    region: env.S3_REGION,
+    region: env.AWS_REGION,
     bucket: env.S3_BUCKET,
     visibility: 'private',
   })

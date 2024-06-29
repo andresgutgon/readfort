@@ -15,7 +15,7 @@
     "AWS_ACCESS_KEY",
     "AWS_ACCESS_SECRET",
     "S3_BUCKET",
-    "S3_REGION",
+    "AWS_REGION",
     "DRIVE_DISK"
   ],
   "globalDependencies": ["**/.env.*local"],
