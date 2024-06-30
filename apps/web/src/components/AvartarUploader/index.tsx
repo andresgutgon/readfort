@@ -29,15 +29,37 @@ type AvatarHandlerProps = AvatarProps & {
 }
 function AvatarHandler({ onDelete, url, alt, fallback }: AvatarHandlerProps) {
   return (
-    <div data-skip-zone-click className='relative'>
-      <button
-        onClick={onDelete}
-        className='group z-10 absolute inset-0 rounded-full hover:bg-gray-900/70 flex items-center justify-center'
+    <>
+      <Tooltip
+        side='top'
+        align='center'
+        trigger={
+          <div className='relative'>
+            <div
+              data-skip-zone-click
+              role='button'
+              onClick={onDelete}
+              className='group z-10 absolute inset-0 rounded-full hover:bg-gray-900/70 flex items-center justify-center'
+            >
+              <Icons.trash className='w-6 h-6 text-white/80 opacity-0 group-hover:opacity-100' />
+            </div>
+            <Avatar
+              url={url}
+              alt={alt}
+              fallback={fallback}
+              className='w-12 h-12'
+            />
+          </div>
+        }
       >
-        <Icons.trash className='w-6 h-6 text-white/80 opacity-0 group-hover:opacity-100' />
-      </button>
-      <Avatar url={url} alt={alt} fallback={fallback} className='w-12 h-12' />
-    </div>
+        Lost your avatar
+      </Tooltip>
+      <div className='absolute -bottom-6 left-0 right-0 flex justify-center'>
+        <Button asChild variant='outline' size='sm'>
+          <span>Change</span>
+        </Button>
+      </div>
+    </>
   )
 }
 
@@ -71,14 +93,6 @@ function ExistingAvatar({
         fallback={fallback}
         className='w-12 h-12'
       />
-      <div
-        data-skip-zone-click={!!tempImgUrl}
-        className='absolute -bottom-8 left-0 right-0 flex justify-center'
-      >
-        <Button variant={tempImgUrl ? 'default' : 'outline'} size='sm'>
-          {tempImgUrl ? 'Upload' : 'Change'}
-        </Button>
-      </div>
     </div>
   )
 }
@@ -107,59 +121,59 @@ export default function AvatarUploader({
     const file = files?.[0]
     if (!file) return
 
+    console.log('Uploading', file)
     setTempImgUrl(URL.createObjectURL(file))
   }
-
+  const noImage = !url && !tempImgUrl
   return (
-    <Tooltip
-      open={!url}
-      side='top'
-      align='center'
-      trigger={
-        <Dropzone
-          ref={inputRef}
-          onChange={onChange}
-          multiple={false}
-          accept='image/*'
-        >
-          {({ isDragging }) => (
-            <form
-              onClick={onClickZone}
-              onSubmit={(e) => {
-                e.preventDefault()
-                const file = inputRef.current?.files?.[0]
-                if (!file) return
+    <Dropzone
+      ref={inputRef}
+      onChange={onChange}
+      multiple={false}
+      accept='image/*'
+    >
+      {({ isDragging }) => (
+        <form
+          onClick={onClickZone}
+          onSubmit={(e) => {
+            e.preventDefault()
+            const file = inputRef.current?.files?.[0]
+            if (!file) return
 
-                console.log('Uploading', file)
-              }}
-              className={cn(
-                'cursor-pointer rounded-full p-10 flex flex-col items-center justify-center gap-y-2',
-                {
-                  'ring-2 ring-gray-200': !url,
-                  'ring ring-gray-100': isDragging,
-                },
-              )}
-            >
-              {url ? (
-                <ExistingAvatar
-                  url={url}
-                  alt={alt}
-                  fallback={fallback}
-                  currentRoute={currentRoute}
-                  tempImgUrl={tempImgUrl}
-                  setTempImgUrl={setTempImgUrl}
-                />
-              ) : (
-                <div className='rounded-md border border-gray-100'>
+            console.log('Uploading', file)
+          }}
+          className={cn(
+            'cursor-pointer rounded-full p-4 flex flex-col items-center justify-center gap-y-2',
+            {
+              'ring ring-gray-100': noImage || isDragging,
+            },
+          )}
+        >
+          {noImage ? (
+            <Tooltip
+              open
+              side='top'
+              align='center'
+              trigger={
+                <div className='rounded-md min-h-12 min-w-12 flex items-center justify-center'>
                   <Icons.imageUp className='w-8 h-8 text-gray-500' />
                 </div>
-              )}
-            </form>
+              }
+            >
+              Click or Drag an image
+            </Tooltip>
+          ) : (
+            <ExistingAvatar
+              url={url}
+              alt={alt}
+              fallback={fallback}
+              currentRoute={currentRoute}
+              tempImgUrl={tempImgUrl}
+              setTempImgUrl={setTempImgUrl}
+            />
           )}
-        </Dropzone>
-      }
-    >
-      Click or Drag an image
-    </Tooltip>
+        </form>
+      )}
+    </Dropzone>
   )
 }
