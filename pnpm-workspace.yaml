@@ -1,4 +1,5 @@
 packages:
+  - "infrastructure"
   - "apps/*"
   - "packages/**"
   - 'tools/**'

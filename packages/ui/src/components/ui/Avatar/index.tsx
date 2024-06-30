@@ -50,26 +50,25 @@ const AvatarFallback = forwardRef<
   )
 })
 
-function Avatar({
-  url,
-  alt,
-  fallback,
-  className,
-}: {
-  url?: string | undefined | null
-  className?: string
+export type Props = {
   alt: string
-  fallback: {
+  fallback?: {
     initials: string
     bgColorClass?: string
   }
-}) {
+  url?: string | undefined | null
+  className?: string
+}
+
+function Avatar({ url, alt, fallback, className }: Props) {
   return (
-    <AvatarRoot className={className}>
+    <AvatarRoot className={cn('bg-gray-100', className)}>
       {url ? <AvatarImage src={url} alt={alt} /> : null}
-      <AvatarFallback className={fallback.bgColorClass}>
-        {fallback.initials}
-      </AvatarFallback>
+      {fallback && (
+        <AvatarFallback className={fallback.bgColorClass}>
+          {fallback.initials}
+        </AvatarFallback>
+      )}
     </AvatarRoot>
   )
 }

@@ -18,7 +18,8 @@
     "db:migrate": "drizzle-kit migrate --config=./drizzle.config.ts",
     "db:migrate:test": "NODE_ENV=test pnpm run db:migrate",
     "db:drop": "drizzle-kit drop",
-    "db:check": "drizzle-kit check"
+    "db:check": "drizzle-kit check",
+    "db:studio": "drizzle-kit studio --verbose"
   },
   "dependencies": {
     "@auth/drizzle-adapter": "^1.1.0",
@@ -27,6 +28,7 @@
     "@readfort/ui": "workspace:*",
     "@t3-oss/env-nextjs": "^0.10.1",
     "drizzle-orm": "^0.31.2",
+    "flydrive": "^1.0.2",
     "next": "14.3.0-canary.59",
     "next-auth": "5.0.0-beta.19",
     "nodemailer": "^6.9.13",
@@ -36,9 +38,9 @@
     "react": "19.0.0-beta-26f2496093-20240514",
     "react-dom": "19.0.0-beta-26f2496093-20240514",
     "slugify": "^1.6.6",
+    "zod": "^3.23.5",
     "zsa": "file:../../../../opensource/zsa/packages/zsa",
-    "zsa-react": "file:../../../../opensource/zsa/packages/zsa-react",
-    "zod": "^3.23.5"
+    "zsa-react": "file:../../../../opensource/zsa/packages/zsa-react"
   },
   "devDependencies": {
     "@next/eslint-plugin-next": "^14.1.1",

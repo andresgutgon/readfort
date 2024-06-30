@@ -1,5 +1,6 @@
 /** @type {import('next').NextConfig} */
 export default {
+  transpilePackages: ['lucide-react'],
   webpack: (config) => {
     // NOTE: There's a native NextJS option in
     // experimental.serverComponentsExternalPackages but it doesn't work

@@ -5,7 +5,7 @@ import { Inter } from 'next/font/google'
 
 import '@readfort/tailwindcss/global.css'
 
-import { ToastProvider } from '@readfort/ui'
+import { ToastProvider, TooltipProvider } from '@readfort/ui'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -22,7 +22,9 @@ export default async function RootLayout({
   return (
     <html lang='en'>
       <body className={inter.className}>
-        <main>{children}</main>
+        <TooltipProvider delayDuration={200}>
+          <main>{children}</main>
+        </TooltipProvider>
         <ToastProvider />
       </body>
     </html>
