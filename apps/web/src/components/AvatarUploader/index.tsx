@@ -113,10 +113,13 @@ export default function AvatarUploader({
     if (!file) return
 
     setTempImgUrl(URL.createObjectURL(file))
-    addAvatar({ currentRoute, file })
+    const form = new FormData()
+    form.set('currentRoute', currentRoute)
+    form.set('file', file)
+    addAvatar(form)
   }
   const onDelete = async () => {
-    await deleteAvatarAction({ currentRoute })
+    // await deleteAvatarAction({ currentRoute })
     setTempImgUrl(undefined)
   }
   const noImage = !url && !tempImgUrl
@@ -149,6 +152,7 @@ export default function AvatarUploader({
             <Tooltip
               side='top'
               align='center'
+              asChild
               trigger={
                 <div className='relative z-10 rounded-md min-h-12 min-w-12 flex items-center justify-center'>
                   <Icons.imageUp className='w-8 h-8 text-gray-500' />

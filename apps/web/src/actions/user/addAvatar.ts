@@ -23,7 +23,7 @@ const input = z.object({
 
 export const addAvatarAction = authProcedure
   .createServerAction()
-  .input(input)
+  .input(input, { type: 'formData' })
   .handler(async ({ input, ctx: { user } }) => {
     const result = await addAvatar({ user, file: input.file })
     const value = result.unwrap()

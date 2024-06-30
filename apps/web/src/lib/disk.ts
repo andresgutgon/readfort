@@ -1,12 +1,18 @@
+import path from 'path'
 import { Readable } from 'stream'
+import { fileURLToPath } from 'url'
 
 import env, { DriveDiskSchema } from '$/env'
 import Result from '$/lib/Result'
-import { Disk, errors } from 'flydrive'
+/* import { Disk, errors } from 'flydrive' */
+import { Disk } from 'flydrive'
 import { FSDriver } from 'flydrive/drivers/fs'
 import { S3Driver } from 'flydrive/drivers/s3'
 import { WriteOptions } from 'flydrive/types'
 import { z } from 'zod'
+
+const DIRNAME_PATH = path.dirname(fileURLToPath(import.meta.url))
+const UPLOADS_PATH = path.join(DIRNAME_PATH, 'public', 'uploads')
 
 function getAwsCredentials() {
   const accessKeyId = env.AWS_ACCESS_KEY
@@ -51,9 +57,9 @@ class DiskWrapper {
       await this.disk.putStream(key, contents, options)
       return Result.nil()
     } catch (e) {
-      if (e instanceof errors.E_CANNOT_WRITE_FILE) {
-        return Result.error(new Error('Cannot write file'))
-      }
+      /* if (e instanceof errors.E_CANNOT_WRITE_FILE) { */
+      /*   return Result.error(new Error('Cannot write file')) */
+      /* } */
 
       const error = e as Error
       return Result.error(error)
@@ -67,7 +73,9 @@ class DiskWrapper {
 
     if (key === 'local') {
       return new FSDriver({
-        location: new URL('./uploads', import.meta.url),
+        // FIX THIS SHIT
+        location: new URL('/Users/andres/code/andresgutgon/readfort/apps/web/public/uploads'),
+        /* location: UPLOADS_PATH, */
         visibility: 'public',
       })
     }
@@ -76,7 +84,7 @@ class DiskWrapper {
       credentials: getAwsCredentials(),
       region: env.AWS_REGION,
       bucket: env.S3_BUCKET,
-      visibility: 'private',
+      visibility: 'public'
     })
   }
 }
