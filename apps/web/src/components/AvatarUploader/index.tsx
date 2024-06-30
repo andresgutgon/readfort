@@ -79,45 +79,39 @@ export default function AvatarUploader({
   showCircleAnimation = true,
 }: Props) {
   const { toast } = useToast()
-  const { execute: addAvatar, isPending: isAdding } = useServerAction(
-    addAvatarAction,
-    {
-      onSuccess: () => {
-        toast({
-          title: 'Avatar uploaded',
-          description: 'Your avatar has been uploaded successfully',
-          variant: 'default',
-        })
-      },
-      onError: (error) => {
-        toast({
-          title: 'Avatar upload failed',
-          description: error.err.message,
-          variant: 'destructive',
-        })
-      },
+  const [imageUrl, setImageUrl] = useState(url)
+  const { execute: addAvatar } = useServerAction(addAvatarAction, {
+    onSuccess: () => {
+      toast({
+        title: 'Avatar uploaded',
+        description: 'Your avatar has been uploaded successfully',
+        variant: 'default',
+      })
     },
-  )
-  const { execute: deleteAvatar, isPending: isRemoving } = useServerAction(
-    deleteAvatarAction,
-    {
-      onSuccess: () => {
-        toast({
-          title: 'Avatar deleted',
-          description:
-            'Your avatar has been removed. Why not upload a new one?',
-          variant: 'default',
-        })
-      },
-      onError: (error) => {
-        toast({
-          title: 'Avatar removal failed',
-          description: error.err.message,
-          variant: 'destructive',
-        })
-      },
+    onError: (error) => {
+      toast({
+        title: 'Avatar upload failed',
+        description: error.err.message,
+        variant: 'destructive',
+      })
     },
-  )
+  })
+  const { execute: deleteAvatar } = useServerAction(deleteAvatarAction, {
+    onSuccess: () => {
+      toast({
+        title: 'Avatar deleted',
+        description: 'Your avatar has been removed. Why not upload a new one?',
+        variant: 'default',
+      })
+    },
+    onError: (error) => {
+      toast({
+        title: 'Avatar removal failed',
+        description: error.err.message,
+        variant: 'destructive',
+      })
+    },
+  })
   const inputRef = useRef<HTMLInputElement>(null)
   const [tempImgUrl, setTempImgUrl] = useState<string>()
 
@@ -137,13 +131,16 @@ export default function AvatarUploader({
     const form = new FormData()
     form.set('currentRoute', currentRoute)
     form.set('file', file)
-    addAvatar(form)
+    const [newImage] = await addAvatar(form)
+    setImageUrl(newImage)
+    // setTempImgUrl(undefined)
   }
   const onDelete = async () => {
-    deleteAvatar({ currentRoute })
+    await deleteAvatar({ currentRoute })
     setTempImgUrl(undefined)
+    setImageUrl(undefined)
   }
-  const noImage = !url && !tempImgUrl
+  const noImage = !imageUrl && !tempImgUrl
   return (
     <Dropzone
       ref={inputRef}
@@ -155,11 +152,8 @@ export default function AvatarUploader({
         <form
           onClick={onClickZone}
           className={cn(
-            'cursor-pointer rounded-full flex flex-col items-center justify-center gap-y-2',
-            'relative z-10 group/dropzone',
-            {
-              'ring ring-gray-100': noImage || isDragging,
-            },
+            'cursor-pointer rounded-full',
+            'relative z-10 group/dropzone min-h-20',
           )}
         >
           {noImage ? (
@@ -168,7 +162,10 @@ export default function AvatarUploader({
               align='center'
               asChild
               trigger={
-                <EmptyAvatar showCircleAnimation={showCircleAnimation} />
+                <EmptyAvatar
+                  isDragging={isDragging}
+                  showCircleAnimation={showCircleAnimation}
+                />
               }
             >
               <div className='max-w-40'>Click or Drag an your photo</div>

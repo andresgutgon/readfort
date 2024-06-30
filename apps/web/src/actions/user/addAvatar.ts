@@ -3,7 +3,6 @@
 import { authProcedure } from '$/actions/procedures'
 import { updateSession } from '$/auth'
 import addAvatar from '$/services/user/addAvatar'
-import { revalidatePath } from 'next/cache'
 import { z } from 'zod'
 
 const MAX_UPLOAD_SIZE = 400 * 1024 // 400kb
@@ -24,11 +23,12 @@ const input = z.object({
 export const addAvatarAction = authProcedure
   .createServerAction()
   .input(input, { type: 'formData' })
+  .output(z.string())
   .handler(async ({ input, ctx: { user } }) => {
     const result = await addAvatar({ user, file: input.file })
     const value = result.unwrap()
 
     await updateSession({ user: { image: value.image } })
 
-    revalidatePath(input.currentRoute)
+    return value.image!
   })
