@@ -1,7 +1,7 @@
 import SigninHeader from '$/app/signin/components/SigninHeader'
 import OnboardingForm from '$/app/signin/onboarding/OnboardingFrom'
 import { auth } from '$/auth'
-import AvatarUploader from '$/components/AvartarUploader'
+import AvatarUploader from '$/components/AvatarUploader'
 import { CLAIN_DESCRIPTION } from '$/constants'
 import { ROUTES } from '$/lib/routes'
 import getUserInfo from '$/lib/user/getInfo'

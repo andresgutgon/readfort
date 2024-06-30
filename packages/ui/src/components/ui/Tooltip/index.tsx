@@ -68,39 +68,33 @@ function Tooltip({
   updatePositionStrategy,
 }: Props) {
   return (
-    <TooltipProvider
+    <TooltipRoot
+      open={open}
+      defaultOpen={defaultOpen}
+      onOpenChange={onOpenChange}
       delayDuration={delayDuration}
-      skipDelayDuration={skipDelayDuration}
       disableHoverableContent={disableHoverableContent}
     >
-      <TooltipRoot
-        open={open}
-        defaultOpen={defaultOpen}
-        onOpenChange={onOpenChange}
-        delayDuration={delayDuration}
-        disableHoverableContent={disableHoverableContent}
-      >
-        <TooltipTrigger>{trigger}</TooltipTrigger>
-        <TooltipPrimitive.Portal>
-          <TooltipContent
-            side={side}
-            sideOffset={sideOffset}
-            align={align}
-            alignOffset={alignOffset}
-            arrowPadding={arrowPadding}
-            avoidCollisions={avoidCollisions}
-            collisionBoundary={collisionBoundary}
-            collisionPadding={collisionPadding}
-            sticky={sticky}
-            hideWhenDetached={hideWhenDetached}
-            updatePositionStrategy={updatePositionStrategy}
-          >
-            {children}
-          </TooltipContent>
-        </TooltipPrimitive.Portal>
-      </TooltipRoot>
-    </TooltipProvider>
+      <TooltipTrigger>{trigger}</TooltipTrigger>
+      <TooltipPrimitive.Portal>
+        <TooltipContent
+          side={side}
+          sideOffset={sideOffset}
+          align={align}
+          alignOffset={alignOffset}
+          arrowPadding={arrowPadding}
+          avoidCollisions={avoidCollisions}
+          collisionBoundary={collisionBoundary}
+          collisionPadding={collisionPadding}
+          sticky={sticky}
+          hideWhenDetached={hideWhenDetached}
+          updatePositionStrategy={updatePositionStrategy}
+        >
+          {children}
+        </TooltipContent>
+      </TooltipPrimitive.Portal>
+    </TooltipRoot>
   )
 }
 
-export { Tooltip }
+export { Tooltip, TooltipProvider }
