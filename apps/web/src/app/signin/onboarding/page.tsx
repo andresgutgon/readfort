@@ -1,9 +1,9 @@
-import { Avatar } from '@readfort/ui'
 import SigninHeader from '$/app/signin/components/SigninHeader'
 import OnboardingForm from '$/app/signin/onboarding/OnboardingFrom'
 import { auth } from '$/auth'
 import AvatarUploader from '$/components/AvartarUploader'
 import { CLAIN_DESCRIPTION } from '$/constants'
+import { ROUTES } from '$/lib/routes'
 import getUserInfo from '$/lib/user/getInfo'
 import { Metadata } from 'next'
 
@@ -23,6 +23,7 @@ export default async function OnboardingPage() {
     <>
       <div className='relative flex flex-col items-center gap-y-4'>
         <AvatarUploader
+          currentRoute={ROUTES.signin.finish}
           url={info.image}
           alt={info.name}
           fallback={info.fallback}

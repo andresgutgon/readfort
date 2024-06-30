@@ -1,9 +1,12 @@
 import {
+  ImageUp,
   Loader2,
   LucideProps,
   MailIcon,
   Moon,
   SunMedium,
+  Trash2Icon,
+  UploadIcon,
   type LucideIcon,
 } from 'lucide-react'
 
@@ -16,6 +19,8 @@ export const Icons = {
   moon: Moon,
   spinner: Loader2,
   mail: MailIcon,
+  trash: Trash2Icon,
+  imageUp: ImageUp,
   logo: (props: LucideProps) => (
     <svg
       xmlns='http://www.w3.org/2000/svg'

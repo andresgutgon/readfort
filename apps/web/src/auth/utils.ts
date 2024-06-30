@@ -5,6 +5,7 @@ export interface AppUser {
   id: string
   name?: string | null
   username?: string | null
+  image?: string | null
   kindle?: KindleCountry | null
   hasCompletedOnboarding?: boolean
 }
