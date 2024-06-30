@@ -133,7 +133,12 @@ const {
       if (name) token.name = name
 
       const image = session?.user?.image ?? user?.image
-      if (image) token.image = image
+      const imageRemoved = session?.user?.avatarRemoved
+      if (image) {
+        token.image = image
+      } else if (imageRemoved) {
+        token.image = null
+      }
 
       const kindle = session?.user?.kindle ?? user?.kindle
       if (kindle) token.kindle = kindle

@@ -3,11 +3,7 @@ import Result from '$/lib/Result'
 import Transaction from '$/lib/Transaction'
 import { eq } from 'drizzle-orm'
 
-export default async function deleteAvatar({
-  user,
-}: {
-  user: SafeUser
-}) {
+export default async function deleteAvatar({ user }: { user: SafeUser }) {
   return Transaction.call<SafeUser>(async (trx) => {
     // TODO: Use Disk to remove the image
     //

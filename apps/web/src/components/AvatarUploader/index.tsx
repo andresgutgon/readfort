@@ -14,54 +14,55 @@ import {
 } from '@readfort/ui'
 import { addAvatarAction } from '$/actions/user/addAvatar'
 import { deleteAvatarAction } from '$/actions/user/deleteAvatar'
+import CircleAnimation from '$/components/AvatarUploader/CircleAnimation'
+import EmptyAvatar from '$/components/AvatarUploader/EmptyAvatar'
 import { useServerAction } from 'zsa-react'
-
-function AnimatedCircle({ className }: { className: string }) {
-  return (
-    <div
-      className={cn(
-        'pointer-events-none absolute w-full h-full rounded-full animate-circle',
-        className,
-      )}
-    />
-  )
-}
 
 type AvatarHandlerProps = AvatarProps & {
   onDelete?: () => void
+  showCircleAnimation: boolean
 }
-function AvatarHandler({ onDelete, url, alt, fallback }: AvatarHandlerProps) {
+function AvatarHandler({
+  showCircleAnimation,
+  onDelete,
+  url,
+  alt,
+  fallback,
+}: AvatarHandlerProps) {
   return (
     <>
       <Tooltip
         side='top'
         align='center'
         trigger={
-          <div className='relative'>
-            <div
-              data-skip-zone-click
-              role='button'
-              onClick={onDelete}
-              className='group/remove z-10 absolute inset-0 rounded-full hover:bg-gray-900/70 flex items-center justify-center'
-            >
-              <Icons.trash className='w-6 h-6 text-white/80 opacity-0 group-hover/remove:opacity-100' />
+          <div className='flex flex-col items-center space-y-2'>
+            <div className='relative'>
+              <CircleAnimation display={showCircleAnimation} />
+              <div
+                data-skip-zone-click
+                role='button'
+                onClick={onDelete}
+                className='group/remove z-10 absolute inset-0 rounded-full hover:bg-gray-900/70 flex items-center justify-center'
+              >
+                <Icons.trash className='w-6 h-6 text-white/80 opacity-0 group-hover/remove:opacity-100' />
+              </div>
+              <Avatar
+                url={url}
+                alt={alt}
+                fallback={fallback}
+                className='w-12 h-12'
+              />
             </div>
-            <Avatar
-              url={url}
-              alt={alt}
-              fallback={fallback}
-              className='w-12 h-12'
-            />
+            <div className='opacity-50 group-hover/dropzone:opacity-100 '>
+              <Button asChild variant='outline' size='sm'>
+                <span>Change</span>
+              </Button>
+            </div>
           </div>
         }
       >
         Remove your avatar
       </Tooltip>
-      <div className='opacity-50 group-hover/dropzone:opacity-100 absolute -bottom-2 left-0 right-0 flex justify-center'>
-        <Button asChild variant='outline' size='sm'>
-          <span>Change</span>
-        </Button>
-      </div>
     </>
   )
 }
@@ -97,6 +98,26 @@ export default function AvatarUploader({
       },
     },
   )
+  const { execute: deleteAvatar, isPending: isRemoving } = useServerAction(
+    deleteAvatarAction,
+    {
+      onSuccess: () => {
+        toast({
+          title: 'Avatar deleted',
+          description:
+            'Your avatar has been removed. Why not upload a new one?',
+          variant: 'default',
+        })
+      },
+      onError: (error) => {
+        toast({
+          title: 'Avatar removal failed',
+          description: error.err.message,
+          variant: 'destructive',
+        })
+      },
+    },
+  )
   const inputRef = useRef<HTMLInputElement>(null)
   const [tempImgUrl, setTempImgUrl] = useState<string>()
 
@@ -119,7 +140,7 @@ export default function AvatarUploader({
     addAvatar(form)
   }
   const onDelete = async () => {
-    // await deleteAvatarAction({ currentRoute })
+    deleteAvatar({ currentRoute })
     setTempImgUrl(undefined)
   }
   const noImage = !url && !tempImgUrl
@@ -134,29 +155,20 @@ export default function AvatarUploader({
         <form
           onClick={onClickZone}
           className={cn(
-            'cursor-pointer rounded-full p-4 flex flex-col items-center justify-center gap-y-2',
+            'cursor-pointer rounded-full flex flex-col items-center justify-center gap-y-2',
             'relative z-10 group/dropzone',
             {
               'ring ring-gray-100': noImage || isDragging,
             },
           )}
         >
-          {showCircleAnimation && (
-            <>
-              <AnimatedCircle className='bg-gray-200 animation-delay-[4s]' />
-              <AnimatedCircle className='bg-gray-10 animation-delay-[2s]' />
-              <AnimatedCircle className='bg-white animation-delay-[0s]' />
-            </>
-          )}
           {noImage ? (
             <Tooltip
               side='top'
               align='center'
               asChild
               trigger={
-                <div className='relative z-10 rounded-md min-h-12 min-w-12 flex items-center justify-center'>
-                  <Icons.imageUp className='w-8 h-8 text-gray-500' />
-                </div>
+                <EmptyAvatar showCircleAnimation={showCircleAnimation} />
               }
             >
               <div className='max-w-40'>Click or Drag an your photo</div>
@@ -164,7 +176,8 @@ export default function AvatarUploader({
           ) : (
             <AvatarHandler
               onDelete={onDelete}
-              url={tempImgUrl ?? url}
+              showCircleAnimation={showCircleAnimation}
+              url={tempImgUrl ?? `/uploads/${url}`}
               alt={alt}
               fallback={fallback}
               className='w-12 h-12'

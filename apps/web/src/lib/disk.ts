@@ -4,8 +4,7 @@ import { fileURLToPath } from 'url'
 
 import env, { DriveDiskSchema } from '$/env'
 import Result from '$/lib/Result'
-/* import { Disk, errors } from 'flydrive' */
-import { Disk } from 'flydrive'
+import { Disk, errors } from 'flydrive'
 import { FSDriver } from 'flydrive/drivers/fs'
 import { S3Driver } from 'flydrive/drivers/s3'
 import { WriteOptions } from 'flydrive/types'
@@ -57,9 +56,9 @@ class DiskWrapper {
       await this.disk.putStream(key, contents, options)
       return Result.nil()
     } catch (e) {
-      /* if (e instanceof errors.E_CANNOT_WRITE_FILE) { */
-      /*   return Result.error(new Error('Cannot write file')) */
-      /* } */
+      if (e instanceof errors.E_CANNOT_WRITE_FILE) {
+        return Result.error(new Error('Cannot write file'))
+      }
 
       const error = e as Error
       return Result.error(error)
@@ -74,7 +73,8 @@ class DiskWrapper {
     if (key === 'local') {
       return new FSDriver({
         // FIX THIS SHIT
-        location: new URL('/Users/andres/code/andresgutgon/readfort/apps/web/public/uploads'),
+        location:
+          '/Users/andres/code/andresgutgon/readfort/apps/web/public/uploads',
         /* location: UPLOADS_PATH, */
         visibility: 'public',
       })
@@ -84,7 +84,7 @@ class DiskWrapper {
       credentials: getAwsCredentials(),
       region: env.AWS_REGION,
       bucket: env.S3_BUCKET,
-      visibility: 'public'
+      visibility: 'public',
     })
   }
 }

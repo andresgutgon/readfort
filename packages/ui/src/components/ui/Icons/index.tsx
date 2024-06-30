@@ -1,11 +1,11 @@
 import {
+  ImageUpIcon,
   Loader2,
   LucideProps,
   MailIcon,
   Moon,
   SunMedium,
   Trash2Icon,
-  ImageUpIcon,
   type LucideIcon,
 } from 'lucide-react'
 
