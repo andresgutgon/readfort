@@ -47,8 +47,11 @@ export const users = pgTable(
   }),
 )
 
-export const usersRelations = relations(accounts, ({ one }) => ({
-  account: one(accounts),
+export const usersRelations = relations(users, ({ one }) => ({
+  account: one(accounts, {
+    fields: [users.id],
+    references: [accounts.userId],
+  }),
 }))
 
 export type User = InferSelectModel<typeof users> & {
