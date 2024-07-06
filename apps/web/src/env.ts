@@ -18,10 +18,9 @@ export default createEnv({
     S3_BUCKET: z.string(),
     AWS_ACCESS_KEY: z.string().optional(),
     AWS_ACCESS_SECRET: z.string().optional(),
+    DRIVE_DISK: DriveDiskSchema,
   },
-  client: {
-    NEXT_PUBLIC_DRIVE_DISK: DriveDiskSchema,
-  },
+  client: {},
   runtimeEnv: {
     AUTH_URL: process.env.AUTH_URL,
     AUTH_SECRET: process.env.AUTH_SECRET,
@@ -33,7 +32,7 @@ export default createEnv({
     BETA_LIST_EMAILS: process.env.BETA_LIST_EMAILS,
     AUTH_GOOGLE_ID: process.env.AUTH_GOOGLE_ID,
     AUTH_GOOGLE_SECRET: process.env.AUTH_GOOGLE_SECRET,
-    NEXT_PUBLIC_DRIVE_DISK: process.env.NEXT_PUBLIC_DRIVE_DISK,
+    DRIVE_DISK: process.env.DRIVE_DISK,
     AWS_ACCESS_KEY: process.env.AWS_ACCESS_KEY,
     AWS_ACCESS_SECRET: process.env.AWS_ACCESS_SECRET,
     AWS_REGION: process.env.AWS_REGION,

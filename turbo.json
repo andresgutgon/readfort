@@ -16,7 +16,7 @@
     "AWS_ACCESS_SECRET",
     "S3_BUCKET",
     "AWS_REGION",
-    "NEXT_PUBLIC_DRIVE_DISK"
+    "DRIVE_DISK"
   ],
   "globalDependencies": ["**/.env.*local"],
   "pipeline": {

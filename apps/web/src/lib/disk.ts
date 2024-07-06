@@ -110,4 +110,4 @@ class DiskWrapper {
   }
 }
 
-export default new DiskWrapper(env.NEXT_PUBLIC_DRIVE_DISK)
+export default new DiskWrapper(env.DRIVE_DISK)

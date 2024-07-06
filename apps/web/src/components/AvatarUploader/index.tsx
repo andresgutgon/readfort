@@ -12,7 +12,6 @@ import {
 import { addAvatarAction } from '$/actions/user/addAvatar'
 import { deleteAvatarAction } from '$/actions/user/deleteAvatar'
 import UploadAvatarWrapper from '$/components/AvatarUploader/Wrapper'
-import { getAssetPath } from '$/lib/disk/assetPath'
 import { useServerAction } from 'zsa-react'
 
 import Avatar from './Avatar'
