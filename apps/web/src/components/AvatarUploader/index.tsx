@@ -94,7 +94,7 @@ export default function AvatarUploader({
   }
   const noImage = !imageUrl && !tempImgUrl
   const showAnimation = hideCircleAnimation !== false && noImage
-  const imageFullPath = tempImgUrl ?? getAssetPath({ key: imageUrl })
+  const imageFullPath = tempImgUrl ?? imageUrl
   return (
     <Dropzone
       ref={inputRef}

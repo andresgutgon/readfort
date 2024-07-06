@@ -10,11 +10,11 @@ import {
 } from './index'
 import { useToast } from './useToast'
 
-export function ToastProvider() {
+export function ToastProvider({ duration }: { duration: number }) {
   const { toasts } = useToast()
 
   return (
-    <ToastProviderPrimitive>
+    <ToastProviderPrimitive duration={duration}>
       {toasts.map(function ({ id, title, description, action, ...props }) {
         return (
           <Toast key={id} {...props}>

@@ -10,10 +10,13 @@ import { S3Driver } from 'flydrive/drivers/s3'
 import { WriteOptions } from 'flydrive/types'
 import { z } from 'zod'
 
-import { DISK_PATH } from './assetPath'
-
+const PUBLIC_PATH = 'uploads'
 const DIRNAME_PATH = path.dirname(fileURLToPath(import.meta.url))
-const UPLOADS_PATH = path.join(DIRNAME_PATH, `../../../public/${DISK_PATH}`)
+const UPLOADS_PATH = path.join(DIRNAME_PATH, `../../public/${PUBLIC_PATH}`)
+
+async function generateURL(key: string) {
+  return `/${PUBLIC_PATH}/${key}`
+}
 
 function getAwsCredentials() {
   const accessKeyId = env.AWS_ACCESS_KEY
@@ -42,6 +45,12 @@ class DiskWrapper {
 
   constructor(diskKey: DiskKey) {
     this.disk = new Disk(this.buildDisk(diskKey))
+  }
+
+  async getUrl(key: string | undefined | null) {
+    if (!key) return null
+
+    return this.disk.getUrl(key)
   }
 
   async putFile(key: string, file: File) {
@@ -85,7 +94,11 @@ class DiskWrapper {
     }
 
     if (key === 'local') {
-      return new FSDriver({ location: UPLOADS_PATH, visibility: 'public' })
+      return new FSDriver({
+        location: UPLOADS_PATH,
+        visibility: 'public',
+        urlBuilder: { generateURL },
+      })
     }
 
     return new S3Driver({

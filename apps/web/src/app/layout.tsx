@@ -25,7 +25,7 @@ export default async function RootLayout({
         <TooltipProvider delayDuration={200}>
           <main>{children}</main>
         </TooltipProvider>
-        <ToastProvider />
+        <ToastProvider duration={1500} />
       </body>
     </html>
   )

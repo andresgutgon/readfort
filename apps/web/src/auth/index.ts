@@ -7,6 +7,7 @@ import { AppUser, isCompleted } from '$/auth/utils'
 import db from '$/db/client'
 import { accounts, users, verificationTokens } from '$/db/schema'
 import env from '$/env'
+import disk from '$/lib/disk'
 import { ROUTES } from '$/lib/routes'
 import MagicLinkMail from '$/mailer/mailers/user/MagicLinkMail'
 import generateUsername from '$/services/user/generateUsername'
@@ -157,10 +158,10 @@ const {
       return token
     },
     // Session is used to read token info in the frontend.
-    session({ session, token }) {
+    async session({ session, token }) {
       session.user.id = token.id
       session.user.name = token.name
-      session.user.image = token.image
+      session.user.image = await disk.getUrl(token.image)
       session.user.username = token.username
       session.user.kindle = token.kindle
       session.user.hasCompletedOnboarding = isCompleted(token)
