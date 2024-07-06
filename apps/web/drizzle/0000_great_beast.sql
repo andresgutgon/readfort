@@ -21,6 +21,16 @@ CREATE TABLE IF NOT EXISTS "accounts" (
 	CONSTRAINT "accounts_provider_providerAccountId_pk" PRIMARY KEY("provider","providerAccountId")
 );
 --> statement-breakpoint
+CREATE TABLE IF NOT EXISTS "blobs" (
+	"id" bigserial PRIMARY KEY NOT NULL,
+	"key" varchar(256) NOT NULL,
+	"content_type" varchar(256) NOT NULL,
+	"content_length" numeric NOT NULL,
+	"etag" varchar(256) NOT NULL,
+	"created_at" timestamp DEFAULT now() NOT NULL,
+	"updated_at" timestamp DEFAULT now() NOT NULL
+);
+--> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "users" (
 	"id" text PRIMARY KEY NOT NULL,
 	"name" text,
@@ -29,6 +39,7 @@ CREATE TABLE IF NOT EXISTS "users" (
 	"emailVerified" timestamp,
 	"image" text,
 	"kindle" "kindle",
+	"avatar_id" bigint,
 	"created_at" timestamp DEFAULT now() NOT NULL,
 	"updated_at" timestamp DEFAULT now() NOT NULL
 );
@@ -48,5 +59,12 @@ EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;
 --> statement-breakpoint
+DO $$ BEGIN
+ ALTER TABLE "users" ADD CONSTRAINT "users_avatar_id_blobs_id_fk" FOREIGN KEY ("avatar_id") REFERENCES "public"."blobs"("id") ON DELETE set null ON UPDATE no action;
+EXCEPTION
+ WHEN duplicate_object THEN null;
+END $$;
+--> statement-breakpoint
+CREATE INDEX IF NOT EXISTS "blob_key_idx" ON "blobs" USING btree ("key");--> statement-breakpoint
 CREATE UNIQUE INDEX IF NOT EXISTS "email_idx" ON "users" USING btree (lower("email"));--> statement-breakpoint
 CREATE UNIQUE INDEX IF NOT EXISTS "username_idx" ON "users" USING btree (lower("username"));

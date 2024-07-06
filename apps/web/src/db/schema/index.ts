@@ -6,7 +6,10 @@ export {
   verificationRelations,
 } from './auth/verificationTokens'
 
+export { blobs } from './media/blobs'
+
 // Type exports
 export type { User, SafeUser } from './auth/users'
 export type { Account } from './auth/accounts'
 export type { VerificationToken } from './auth/verificationTokens'
+export type { Blob } from './media/blobs'

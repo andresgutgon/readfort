@@ -5,6 +5,8 @@ import { lowercaseColumn, timestamps } from '$/db/schema/schemaHelpers'
 import { KindleCountry } from '$/lib/types'
 import { InferSelectModel, relations } from 'drizzle-orm'
 import {
+  AnyPgColumn,
+  bigint,
   pgEnum,
   pgTable,
   text,
@@ -12,6 +14,7 @@ import {
   uniqueIndex,
   varchar,
 } from 'drizzle-orm/pg-core'
+import { blobs } from '$/db/schema/media/blobs'
 
 export const kindleCountriesEnum = pgEnum('kindle', [
   KindleCountry.US,
@@ -39,6 +42,10 @@ export const users = pgTable(
     emailVerified: timestamp('emailVerified', { mode: 'date' }),
     image: text('image'),
     kindle: kindleCountriesEnum('kindle'),
+    avatarId: bigint('avatar_id', { mode: 'bigint' }).references(
+      (): AnyPgColumn => blobs.id,
+      { onDelete: 'set null' },
+    ),
     ...timestamps(),
   },
   (user) => ({
@@ -52,10 +59,15 @@ export const usersRelations = relations(users, ({ one }) => ({
     fields: [users.id],
     references: [accounts.userId],
   }),
+  avatar: one(blobs, {
+    fields: [users.avatarId],
+    references: [blobs.id],
+  }),
 }))
 
 export type User = InferSelectModel<typeof users> & {
   account: Account
+  avatar: Blob | undefined
 }
 
 export type SafeUser = Pick<
