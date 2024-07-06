@@ -4,7 +4,7 @@ import { useState } from 'react'
 
 import { Badge, Button, Input, useToast } from '@readfort/ui'
 import { onboarding } from '$/actions/user/onboarding'
-import KindleSelect from '$/app/signin/onboarding/OnboardingFrom/KindleSelect'
+import KindleSelectCountry from '$/components/KindleSelectCountry'
 import { KindleCountry } from '$/lib/types'
 import { useServerAction } from 'zsa-react'
 
@@ -72,7 +72,10 @@ export default function OnboardingForm({
         placeholder='Pick a username'
         description={<UsernameDescription username={currentUsername} />}
       />
-      <KindleSelect selected={data?.kindle} errors={fieldErrors?.kindle} />
+      <KindleSelectCountry
+        selected={data?.kindle}
+        errors={fieldErrors?.kindle}
+      />
       <Button
         fullWidth
         type='submit'

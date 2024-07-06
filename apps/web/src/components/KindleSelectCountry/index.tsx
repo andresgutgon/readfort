@@ -1,5 +1,6 @@
 import { Select } from '@readfort/ui'
-import flags from '$/app/signin/onboarding/OnboardingFrom/KindleSelect/CountryFlags'
+
+import flags from './CountryFlags'
 
 const COUNTRIES = [
   { label: 'United States', value: 'us', icon: flags.us },
@@ -15,7 +16,7 @@ const COUNTRIES = [
   { label: 'Australia', value: 'au', icon: flags.au },
 ]
 
-export default function KindleSelect({
+export default function KindleSelectCountry({
   selected,
   errors,
 }: {
