@@ -12,7 +12,7 @@ function UsernameDescription({ username }: { username: string }) {
   return (
     <div className='flex items-center gap-x-0.5'>
       <span className='py-0.5 text-xs text-muted-foreground'>
-        https://example.com/u/
+        https://readfort.com/u/
       </span>
       <Badge variant='secondary' className='px-1'>
         {username ? username : 'your-username'}

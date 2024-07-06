@@ -9,7 +9,9 @@ import { findUserWithUsername } from '$/services/user/generateUsername'
 import { redirect } from 'next/navigation'
 import { z } from 'zod'
 
-const KINDLE = z.nativeEnum(KindleCountry, { message: 'Select a country' })
+const KINDLE = z.nativeEnum(KindleCountry, {
+  message: 'Please, select the country where you have your Kindle account',
+})
 export const onboarding = authProcedure
   .createServerAction({ persistedDataWhenError: true })
   .output(z.object({ name: z.string(), username: z.string(), kindle: KINDLE }))
