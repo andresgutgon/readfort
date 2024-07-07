@@ -66,7 +66,7 @@ export const usersRelations = relations(users, ({ one }) => ({
 }))
 
 export type User = InferSelectModel<typeof users> & {
-  account: Account
+  account: Account | undefined
   avatar: Blob | undefined
 }
 

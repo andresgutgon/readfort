@@ -23,9 +23,16 @@ export class BaseModel<N extends TableNames> {
     this.identifier = identifier
   }
 
-  async findById(value: string) {
+  async findById({
+    id,
+    queryArgs,
+  }: {
+    id: string
+    queryArgs?: Omit<FindFirstArg<N>, 'where'>
+  }) {
     return this.findOne({
-      where: eq(this.identifier, value),
+      ...(queryArgs ?? {}),
+      where: eq(this.identifier, id),
     })
   }
 
