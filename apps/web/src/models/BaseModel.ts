@@ -37,10 +37,10 @@ export class BaseModel<N extends TableNames> {
   }
 
   async findOne(args: FindFirstArg<N>) {
-    return this.query().findFirst(args)
+    return this.query.findFirst(args)
   }
 
-  private query() {
+  private get query() {
     return db.query[this.tableName]
   }
 }
