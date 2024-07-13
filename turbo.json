@@ -16,7 +16,12 @@
     "AWS_ACCESS_SECRET",
     "S3_BUCKET",
     "AWS_REGION",
-    "DRIVE_DISK"
+    "DRIVE_DISK",
+    "DB_HOST",
+    "DB_USERNAME",
+    "DB_PASSWORD",
+    "DB_DATABASE",
+    "DB_PORT"
   ],
   "globalDependencies": ["**/.env.*local"],
   "pipeline": {

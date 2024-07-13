@@ -1,5 +1,16 @@
-version: '3.1'
 services:
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: 'readfort'
+      POSTGRES_PASSWORD: 'secret'
+    ports:
+      - '5432:5432'
+    volumes:
+      - ./init-db.sh:/docker-entrypoint-initdb.d/init-db.sh
+      - ./pgdata:/var/lib/postgresql/data
+
   mailpit:
     image: axllent/mailpit
     container_name: mailpit
@@ -15,14 +26,3 @@ services:
       MP_SMTP_AUTH_ACCEPT_ANY: 0
       MP_SMTP_AUTH_ALLOW_INSECURE: 1
       MP_SMTP_AUTH_FILE: /data/authfile
-  db:
-    image: postgres
-    restart: always
-    environment:
-      POSTGRES_USER: 'readfort'
-      POSTGRES_PASSWORD: 'secret'
-    ports:
-      - '5432:5432'
-    volumes:
-      - ./init-db.sh:/docker-entrypoint-initdb.d/init-db.sh
-      - ./pgdata:/var/lib/postgresql/data

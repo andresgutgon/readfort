@@ -4,7 +4,12 @@
   "singleQuote": true,
   "trailingComma": "all",
   "plugins": ["@ianvs/prettier-plugin-sort-imports"],
-  "importOrderParserPlugins": ["typescript", "jsx", "importAssertions"],
+  "importOrderParserPlugins": [
+    "typescript",
+    "decorators-legacy",
+    "jsx",
+    "importAssertions"
+  ],
   "importOrder": [
     "^react$",
     "^react-dom(.*)$",
