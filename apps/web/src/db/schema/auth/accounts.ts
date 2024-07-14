@@ -1,11 +1,12 @@
+import readfort from '$/db/schema/dbSchema'
 import { timestamps } from '$/db/schema/schemaHelpers'
 import { InferSelectModel, relations } from 'drizzle-orm'
-import { integer, pgTable, primaryKey, text } from 'drizzle-orm/pg-core'
+import { integer, primaryKey, text } from 'drizzle-orm/pg-core'
 import type { AdapterAccountType } from 'next-auth/adapters'
 
 import { users, type User } from './users'
 
-export const accounts = pgTable(
+export const accounts = readfort.table(
   'accounts',
   {
     userId: text('userId')
@@ -30,7 +31,7 @@ export const accounts = pgTable(
   }),
 )
 
-export const accountRelations = relations(accounts, ({ one }) => ({
+export const accountsRelations = relations(accounts, ({ one }) => ({
   user: one(users, {
     fields: [accounts.userId],
     references: [users.id],

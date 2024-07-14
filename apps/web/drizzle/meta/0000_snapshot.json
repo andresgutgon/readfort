@@ -1,12 +1,12 @@
 {
-  "id": "9b4c1a09-20a6-41b7-a839-bd2d85aadc19",
+  "id": "49c7f91a-27c8-4a4f-bbd3-662414c0fdaf",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
-    "public.accounts": {
+    "readfort.accounts": {
       "name": "accounts",
-      "schema": "",
+      "schema": "readfort",
       "columns": {
         "userId": {
           "name": "userId",
@@ -95,6 +95,7 @@
           "name": "accounts_userId_users_id_fk",
           "tableFrom": "accounts",
           "tableTo": "users",
+          "schemaTo": "readfort",
           "columnsFrom": [
             "userId"
           ],
@@ -116,9 +117,79 @@
       },
       "uniqueConstraints": {}
     },
-    "public.users": {
+    "readfort.blobs": {
+      "name": "blobs",
+      "schema": "readfort",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "bigserial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "key": {
+          "name": "key",
+          "type": "varchar(256)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "content_type": {
+          "name": "content_type",
+          "type": "varchar(256)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "content_length": {
+          "name": "content_length",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "etag": {
+          "name": "etag",
+          "type": "varchar(256)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {
+        "blob_key_idx": {
+          "name": "blob_key_idx",
+          "columns": [
+            {
+              "expression": "key",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "readfort.users": {
       "name": "users",
-      "schema": "",
+      "schema": "readfort",
       "columns": {
         "id": {
           "name": "id",
@@ -159,7 +230,13 @@
         "kindle": {
           "name": "kindle",
           "type": "kindle",
-          "typeSchema": "public",
+          "typeSchema": "readfort",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "avatar_id": {
+          "name": "avatar_id",
+          "type": "bigint",
           "primaryKey": false,
           "notNull": false
         },
@@ -210,13 +287,28 @@
           "with": {}
         }
       },
-      "foreignKeys": {},
+      "foreignKeys": {
+        "users_avatar_id_blobs_id_fk": {
+          "name": "users_avatar_id_blobs_id_fk",
+          "tableFrom": "users",
+          "tableTo": "blobs",
+          "schemaTo": "readfort",
+          "columnsFrom": [
+            "avatar_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "set null",
+          "onUpdate": "no action"
+        }
+      },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
-    "public.verificationTokens": {
+    "readfort.verificationTokens": {
       "name": "verificationTokens",
-      "schema": "",
+      "schema": "readfort",
       "columns": {
         "identifier": {
           "name": "identifier",
@@ -266,9 +358,9 @@
     }
   },
   "enums": {
-    "public.kindle": {
+    "readfort.kindle": {
       "name": "kindle",
-      "schema": "public",
+      "schema": "readfort",
       "values": [
         "us",
         "uk",
@@ -284,7 +376,9 @@
       ]
     }
   },
-  "schemas": {},
+  "schemas": {
+    "readfort": "readfort"
+  },
   "_meta": {
     "columns": {},
     "schemas": {},

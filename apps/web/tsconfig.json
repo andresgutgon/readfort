@@ -23,6 +23,7 @@
     "src/**/*.tsx",
     "../../packages/ui/src",
     ".next/types/**/*.ts",
+    "tests/**/*.ts",
     "./nodemailer-mailgun-transport.d.ts"
   ],
   "exclude": ["node_modules"]

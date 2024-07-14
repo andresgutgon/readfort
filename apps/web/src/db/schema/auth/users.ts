@@ -1,19 +1,21 @@
 import crypto from 'node:crypto'
 
 import { Account, accounts } from '$/db/schema/auth/accounts'
+import readfort from '$/db/schema/dbSchema'
+import { blobs } from '$/db/schema/media/blobs'
 import { lowercaseColumn, timestamps } from '$/db/schema/schemaHelpers'
 import { KindleCountry } from '$/lib/types'
 import { InferSelectModel, relations } from 'drizzle-orm'
 import {
-  pgEnum,
-  pgTable,
+  AnyPgColumn,
+  bigint,
   text,
   timestamp,
   uniqueIndex,
   varchar,
 } from 'drizzle-orm/pg-core'
 
-export const kindleCountriesEnum = pgEnum('kindle', [
+export const kindleCountriesEnum = readfort.enum('kindle', [
   KindleCountry.US,
   KindleCountry.UK,
   KindleCountry.DE,
@@ -27,7 +29,7 @@ export const kindleCountriesEnum = pgEnum('kindle', [
   KindleCountry.AU,
 ])
 
-export const users = pgTable(
+export const users = readfort.table(
   'users',
   {
     id: text('id')
@@ -39,6 +41,10 @@ export const users = pgTable(
     emailVerified: timestamp('emailVerified', { mode: 'date' }),
     image: text('image'),
     kindle: kindleCountriesEnum('kindle'),
+    avatarId: bigint('avatar_id', { mode: 'bigint' }).references(
+      (): AnyPgColumn => blobs.id,
+      { onDelete: 'set null' },
+    ),
     ...timestamps(),
   },
   (user) => ({
@@ -51,6 +57,10 @@ export const usersRelations = relations(users, ({ one }) => ({
   account: one(accounts, {
     fields: [users.id],
     references: [accounts.userId],
+  }),
+  avatar: one(blobs, {
+    fields: [users.avatarId],
+    references: [blobs.id],
   }),
 }))
 
