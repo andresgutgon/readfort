@@ -9,6 +9,7 @@ import {
 import { NodePgDatabase } from 'drizzle-orm/node-postgres'
 import { PgTableWithColumns } from 'drizzle-orm/pg-core'
 import { RelationalQueryBuilder } from 'drizzle-orm/pg-core/query-builders/query'
+
 export function AttachmentFactory<
   R extends object,
   T extends GenericSchema = Record<string, unknown>,

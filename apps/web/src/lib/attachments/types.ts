@@ -1,5 +1,5 @@
-import { ExtractTablesWithRelations } from "drizzle-orm"
-import { PgTableWithColumns } from "drizzle-orm/pg-core"
+import { ExtractTablesWithRelations } from 'drizzle-orm'
+import { PgTableWithColumns } from 'drizzle-orm/pg-core'
 
 export type GenericSchema = Record<string, unknown>
 

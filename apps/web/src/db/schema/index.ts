@@ -4,4 +4,7 @@ export { default as readfortSchema } from './dbSchema'
 export * from './auth/users'
 export * from './auth/accounts'
 export * from './auth/verificationTokens'
-export * from './media/blobs'
+
+// Media models
+export * from './attachments/blobs'
+export * from './attachments/attachments'

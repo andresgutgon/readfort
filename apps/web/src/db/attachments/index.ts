@@ -7,9 +7,9 @@ const factory = AttachmentFactory<Blob, typeof schema>({
   dbSchema: schema,
   orm: db,
 })
-const users = factory.build<Schema['users']>({
+const UserAttachment = factory.build<Schema['users']>({
   table: schema['users'],
   attachments: [{ relation: 'avatar' }],
 })
 
-export default { users }
+export default { UserAttachment }
