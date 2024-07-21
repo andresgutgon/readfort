@@ -1,4 +1,4 @@
-import db from '$/db/client'
+import db, { type Schema } from '$/db/client'
 import * as schema from '$/db/schema'
 import { type Blob } from '$/db/schema'
 import {
@@ -80,51 +80,43 @@ type Attachment<
 export function withAttachments<
   R extends object,
   T extends GenericSchema = Record<string, unknown>,
-  U extends PgTableWithColumns<any> = PgTableWithColumns<any>,
   O extends NodePgDatabase<T> = NodePgDatabase<T>,
->({
-  dbSchema,
-  orm,
-  table,
-  attachments,
-}: {
-  dbSchema: T
-  orm: O
-  table: U
-  attachments: Attachment<T, U>[]
-}) {
-  const tableName = getTableName(table)
-  const primaryKey = getPrimaryKey({ table, tableName })
-  const model = orm.query[tableName] as RelationalQueryBuilder<
-    ExtractTablesWithRelations<typeof dbSchema>,
-    TableRelationalConfig
-  >
-  const relations = getRelations({ dbSchema, table, tableName })
-  const relation = relations[attachments[0]?.relation!]!
-
+>({ dbSchema, orm }: { dbSchema: T; orm: O }) {
   return {
-    getAvatar: async (value: unknown): Promise<R> => {
-      const attachment = await model.findFirst({
-        columns: {},
-        with: { [relation.fieldName]: true },
-        where: eq(table[primaryKey], value),
-      })
+    build: function <
+      U extends PgTableWithColumns<any> = PgTableWithColumns<any>,
+    >({ table, attachments }: { table: U; attachments: Attachment<T, U>[] }) {
+      const tableName = getTableName(table)
+      const primaryKey = getPrimaryKey({ table, tableName })
+      const model = orm.query[tableName] as RelationalQueryBuilder<
+        ExtractTablesWithRelations<typeof dbSchema>,
+        TableRelationalConfig
+      >
+      const relations = getRelations({ dbSchema, table, tableName })
+      const relation = relations[attachments[0]?.relation!]!
+      return {
+        getAvatar: async (value: unknown): Promise<R> => {
+          const attachment = await model.findFirst({
+            columns: {},
+            with: { [relation.fieldName]: true },
+            where: eq(table[primaryKey], value),
+          })
 
-      // It's hard to return correct typing of `findFirst` result
-      // but this works for now
-      // @ts-ignore
-      return attachment?.[relation.fieldName] as R
+          // It's hard to return correct typing of `findFirst` result
+          // but this works for now
+          // @ts-ignore
+          return attachment?.[relation.fieldName] as R
+        },
+      }
     },
   }
 }
 
-export const usersAttachments = withAttachments<
-  Blob,
-  typeof schema,
-  (typeof schema)['users']
->({
+const factory = withAttachments<Blob, typeof schema>({
   dbSchema: schema,
   orm: db,
+})
+export const usersAttachments = factory.build<Schema['users']>({
   table: schema['users'],
   attachments: [{ relation: 'avatar' }],
 })
