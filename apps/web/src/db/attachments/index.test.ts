@@ -1,7 +1,8 @@
-import { usersAttachments } from '$/db/withAttachments'
 import mockFs from 'mock-fs'
 import { FAKE_DIR } from 'tests/factories'
 import { afterEach, beforeEach, describe, expect, it } from 'vitest'
+
+import attachments from './index'
 
 describe('placeholder', async () => {
   beforeEach(() => {
@@ -18,7 +19,7 @@ describe('placeholder', async () => {
       avatarId: blob.id,
     })
 
-    const attachment = await usersAttachments.getAvatar(user.id)
+    const attachment = await attachments.users.getAvatar(user.id)
 
     expect(attachment).toBeDefined()
   })
