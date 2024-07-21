@@ -1,9 +1,10 @@
 import { users, type User } from '$/db/schema/auth/users'
+import readfort from '$/db/schema/dbSchema'
 import { timestamps } from '$/db/schema/schemaHelpers'
 import { InferSelectModel, relations } from 'drizzle-orm'
-import { pgTable, primaryKey, text, timestamp } from 'drizzle-orm/pg-core'
+import { primaryKey, text, timestamp } from 'drizzle-orm/pg-core'
 
-export const verificationTokens = pgTable(
+export const verificationTokens = readfort.table(
   'verificationTokens',
   {
     identifier: text('identifier').notNull(),
@@ -16,7 +17,7 @@ export const verificationTokens = pgTable(
   }),
 )
 
-export const verificationRelations = relations(
+export const verificationTokensRelations = relations(
   verificationTokens,
   ({ one }) => ({
     user: one(users, {

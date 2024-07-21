@@ -13,6 +13,8 @@
     "prettier": "prettier --write \"**/*.{ts,tsx,md}\"",
     "tc": "tsc --noEmit",
     "lint": "eslint . --max-warnings 0",
+    "test": "pnpm run db:migrate:test && vitest run --pool=forks",
+    "test:watch": "vitest",
     "db:generate": "drizzle-kit generate",
     "db:generate:custom": "pnpm run db:generate --custom",
     "db:migrate": "drizzle-kit migrate --config=./drizzle.config.ts",
@@ -43,22 +45,28 @@
     "zsa-react": "file:../../../../opensource/zsa/packages/zsa-react"
   },
   "devDependencies": {
+    "@faker-js/faker": "^8.4.1",
     "@next/eslint-plugin-next": "^14.1.1",
     "@readfort/eslint": "workspace:*",
     "@readfort/tailwindcss": "workspace:*",
     "@readfort/typescript": "workspace:*",
     "@types/eslint": "^8.56.5",
+    "@types/mock-fs": "^4.13.4",
     "@types/node": "^20.11.24",
     "@types/nodemailer": "^6.4.15",
     "@types/nodemailer-html-to-text": "^3.1.3",
     "@types/pg": "^8.11.6",
     "@types/react": "^18.2.61",
     "@types/react-dom": "^18.2.19",
+    "dotenv": "^16.3.0",
     "drizzle-kit": "^0.22.7",
     "eslint": "^8.57.0",
     "local-ssl-proxy": "^2.0.5",
+    "mock-fs": "^5.2.0",
+    "pg-transactional-tests": "^1.0.9",
     "prettier": "^3.2.5",
     "tailwindcss": "^3.4.3",
-    "typescript": "^5.3.3"
+    "typescript": "^5.3.3",
+    "vitest": "^2.0.3"
   }
 }
