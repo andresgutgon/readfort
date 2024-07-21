@@ -2,7 +2,7 @@ import crypto from 'node:crypto'
 
 import { Account, accounts } from '$/db/schema/auth/accounts'
 import readfort from '$/db/schema/dbSchema'
-import { blobs } from '$/db/schema/media/blobs'
+import { Blob, blobs } from '$/db/schema/media/blobs'
 import { lowercaseColumn, timestamps } from '$/db/schema/schemaHelpers'
 import { KindleCountry } from '$/lib/types'
 import { InferSelectModel, relations } from 'drizzle-orm'
@@ -65,7 +65,8 @@ export const usersRelations = relations(users, ({ one }) => ({
 }))
 
 export type User = InferSelectModel<typeof users> & {
-  account: Account
+  account?: Account
+  avatar?: Blob
 }
 
 export type SafeUser = Pick<
